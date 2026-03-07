@@ -1,17 +1,17 @@
-import { View, Text, Image, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, Image, StyleSheet, ViewStyle, ImageStyle } from 'react-native';
 
 interface AvatarProps {
   uri?: string | null;
   name?: string;
   size?: number;
-  style?: ViewStyle;
+  style?: ViewStyle | ImageStyle;
 }
 
 export function Avatar({ uri, name, size = 40, style }: AvatarProps) {
   const initials = name?.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase() ?? '?';
 
   if (uri) {
-    return <Image source={{ uri }} style={[{ width: size, height: size, borderRadius: size / 2 }, style]} />;
+    return <Image source={{ uri }} style={[{ width: size, height: size, borderRadius: size / 2 }, style as ImageStyle]} />;
   }
 
   return (
