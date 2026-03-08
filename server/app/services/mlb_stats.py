@@ -68,3 +68,20 @@ async def get_transactions(start_date: str, end_date: str) -> dict:
     )
     resp.raise_for_status()
     return resp.json()
+
+
+async def get_all_teams() -> dict:
+    """GET /teams?sportId=1 — all MLB teams for the current season."""
+    resp = await get_client().get("/teams", params={"sportId": 1})
+    resp.raise_for_status()
+    return resp.json()
+
+
+async def get_player_stats_season(person_id: int, season: int, group: str = "hitting") -> dict:
+    """GET /people/{personId}/stats?stats=season&season=YYYY&group=hitting|pitching"""
+    resp = await get_client().get(
+        f"/people/{person_id}/stats",
+        params={"stats": "season", "season": season, "group": group},
+    )
+    resp.raise_for_status()
+    return resp.json()
